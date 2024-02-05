@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/bittorrent.dir/src/main.c.o CMakeFiles/bittorrent.dir/src/peer.c.o CMakeFiles/bittorrent.dir/src/torrent.c.o CMakeFiles/bittorrent.dir/src/utils.c.o CMakeFiles/bittorrent.dir/src/bencode.c.o -o bittorrent 

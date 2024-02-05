@@ -1,0 +1,3 @@
+/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles/bittorrent.dir
+/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles/edit_cache.dir
+/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles/rebuild_cache.dir
