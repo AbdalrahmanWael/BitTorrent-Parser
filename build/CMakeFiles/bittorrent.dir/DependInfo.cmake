@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/golden/Programming/BitTorrentProtocol/src/bencode.c" "CMakeFiles/bittorrent.dir/src/bencode.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/bencode.c.o.d"
-  "/home/golden/Programming/BitTorrentProtocol/src/main.c" "CMakeFiles/bittorrent.dir/src/main.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/main.c.o.d"
-  "/home/golden/Programming/BitTorrentProtocol/src/peer.c" "CMakeFiles/bittorrent.dir/src/peer.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/peer.c.o.d"
-  "/home/golden/Programming/BitTorrentProtocol/src/torrent.c" "CMakeFiles/bittorrent.dir/src/torrent.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/torrent.c.o.d"
-  "/home/golden/Programming/BitTorrentProtocol/src/utils.c" "CMakeFiles/bittorrent.dir/src/utils.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/utils.c.o.d"
+  "/home/golden/Programming/BitTorrent-Protocol/src/bencode.c" "CMakeFiles/bittorrent.dir/src/bencode.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/bencode.c.o.d"
+  "/home/golden/Programming/BitTorrent-Protocol/src/main.c" "CMakeFiles/bittorrent.dir/src/main.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/main.c.o.d"
+  "/home/golden/Programming/BitTorrent-Protocol/src/peer.c" "CMakeFiles/bittorrent.dir/src/peer.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/peer.c.o.d"
+  "/home/golden/Programming/BitTorrent-Protocol/src/torrent.c" "CMakeFiles/bittorrent.dir/src/torrent.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/torrent.c.o.d"
+  "/home/golden/Programming/BitTorrent-Protocol/src/utils.c" "CMakeFiles/bittorrent.dir/src/utils.c.o" "gcc" "CMakeFiles/bittorrent.dir/src/utils.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

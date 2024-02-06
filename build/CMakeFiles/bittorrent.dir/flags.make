@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/golden/Programming/BitTorrentProtocol/include
+C_INCLUDES = -I/home/golden/Programming/BitTorrent-Protocol/include
 
 C_FLAGS = -std=gnu11 -Wall -Wextra
 

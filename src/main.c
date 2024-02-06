@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
     if (strcmp(command, "decode") == 0) {
         // Parse Bencode data
-        Bencode* result = parse_bencode(bencodeData);
+        Bencode* result = parse_bencode(bencodeData, NULL);
 
         // Check if parsing was successful
         if (result != NULL) {
@@ -28,7 +28,29 @@ int main(int argc, char *argv[]) {
               printf("%lld   \n", result->int_val);
             }
             else if (result->type == BENCODE_LIST) {
-              printf("LIST PARSED");
+                BencodeList* last = (result->list_val);
+                printf("[ ");
+                while (last->next != NULL) {
+                  if(last->next->value->type == BENCODE_STRING) {
+                    printf("%s, ", last->value->str_val);
+                  }
+                  else if (last->next->value->type == BENCODE_INTEGER) {
+                    printf("%lld, ", last->value->int_val);
+                  }
+                  else {
+                    printf("Unsupported\n");
+                  }
+                  last = last->next;
+                }
+                if(last->value->type == BENCODE_STRING) {
+                  printf("%s ] \n", last->value->str_val);
+                }
+                else if (last->value->type == BENCODE_INTEGER) {
+                  printf("%lld ]\n", last->value->int_val);
+                }
+                else {
+                  printf("Unsupported\n");
+                }
             }
             else {
               printf("Unsupported\n");

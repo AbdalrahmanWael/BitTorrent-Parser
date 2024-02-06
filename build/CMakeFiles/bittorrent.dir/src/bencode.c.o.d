@@ -1,7 +1,7 @@
 CMakeFiles/bittorrent.dir/src/bencode.c.o: \
- /home/golden/Programming/BitTorrentProtocol/src/bencode.c \
+ /home/golden/Programming/BitTorrent-Protocol/src/bencode.c \
  /usr/include/stdc-predef.h \
- /home/golden/Programming/BitTorrentProtocol/src/../include/bencode.h \
+ /home/golden/Programming/BitTorrent-Protocol/src/../include/bencode.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdbool.h \
  /usr/include/stdio.h /usr/include/bits/libc-header-start.h \

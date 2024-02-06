@@ -50,10 +50,10 @@ void add_to_bencode_dict(BencodeDict** dict, const char* key, Bencode* value);
 Bencode* get_value_by_key(BencodeDict* dictionary, const char* key);
 
 // Functions for parsing Bencode from strings
-Bencode* parse_bencode(const char* data);
-Bencode* parse_bencode_integer(const char* bencoded_value);
-Bencode* parse_bencode_string(const char* bencoded_value);
-Bencode* parse_bencode_list(const char* data);
+Bencode* parse_bencode(const char* data, const char** end);
+Bencode* parse_bencode_integer(const char* bencoded_value, const char** end);
+Bencode* parse_bencode_string(const char* bencoded_value, const char** end);
+Bencode* parse_bencode_list(const char* data, const char** endpos);
 Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** end);
 
 // Functions for determining Type of Bencoded value

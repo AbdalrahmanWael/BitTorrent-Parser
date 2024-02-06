@@ -1,4 +1,4 @@
-# Install script for directory: /home/golden/Programming/BitTorrentProtocol
+# Install script for directory: /home/golden/Programming/BitTorrent-Protocol
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/golden/Programming/BitTorrentProtocol/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/golden/Programming/BitTorrent-Protocol/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

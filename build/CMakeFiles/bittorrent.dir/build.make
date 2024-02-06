@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/golden/Programming/BitTorrentProtocol
+CMAKE_SOURCE_DIR = /home/golden/Programming/BitTorrent-Protocol
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/golden/Programming/BitTorrentProtocol/build
+CMAKE_BINARY_DIR = /home/golden/Programming/BitTorrent-Protocol/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/bittorrent.dir/depend.make
@@ -70,74 +70,74 @@ include CMakeFiles/bittorrent.dir/progress.make
 include CMakeFiles/bittorrent.dir/flags.make
 
 CMakeFiles/bittorrent.dir/src/main.c.o: CMakeFiles/bittorrent.dir/flags.make
-CMakeFiles/bittorrent.dir/src/main.c.o: /home/golden/Programming/BitTorrentProtocol/src/main.c
+CMakeFiles/bittorrent.dir/src/main.c.o: /home/golden/Programming/BitTorrent-Protocol/src/main.c
 CMakeFiles/bittorrent.dir/src/main.c.o: CMakeFiles/bittorrent.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/bittorrent.dir/src/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/main.c.o -MF CMakeFiles/bittorrent.dir/src/main.c.o.d -o CMakeFiles/bittorrent.dir/src/main.c.o -c /home/golden/Programming/BitTorrentProtocol/src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/bittorrent.dir/src/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/main.c.o -MF CMakeFiles/bittorrent.dir/src/main.c.o.d -o CMakeFiles/bittorrent.dir/src/main.c.o -c /home/golden/Programming/BitTorrent-Protocol/src/main.c
 
 CMakeFiles/bittorrent.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bittorrent.dir/src/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrentProtocol/src/main.c > CMakeFiles/bittorrent.dir/src/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrent-Protocol/src/main.c > CMakeFiles/bittorrent.dir/src/main.c.i
 
 CMakeFiles/bittorrent.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bittorrent.dir/src/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrentProtocol/src/main.c -o CMakeFiles/bittorrent.dir/src/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrent-Protocol/src/main.c -o CMakeFiles/bittorrent.dir/src/main.c.s
 
 CMakeFiles/bittorrent.dir/src/peer.c.o: CMakeFiles/bittorrent.dir/flags.make
-CMakeFiles/bittorrent.dir/src/peer.c.o: /home/golden/Programming/BitTorrentProtocol/src/peer.c
+CMakeFiles/bittorrent.dir/src/peer.c.o: /home/golden/Programming/BitTorrent-Protocol/src/peer.c
 CMakeFiles/bittorrent.dir/src/peer.c.o: CMakeFiles/bittorrent.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/bittorrent.dir/src/peer.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/peer.c.o -MF CMakeFiles/bittorrent.dir/src/peer.c.o.d -o CMakeFiles/bittorrent.dir/src/peer.c.o -c /home/golden/Programming/BitTorrentProtocol/src/peer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/bittorrent.dir/src/peer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/peer.c.o -MF CMakeFiles/bittorrent.dir/src/peer.c.o.d -o CMakeFiles/bittorrent.dir/src/peer.c.o -c /home/golden/Programming/BitTorrent-Protocol/src/peer.c
 
 CMakeFiles/bittorrent.dir/src/peer.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bittorrent.dir/src/peer.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrentProtocol/src/peer.c > CMakeFiles/bittorrent.dir/src/peer.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrent-Protocol/src/peer.c > CMakeFiles/bittorrent.dir/src/peer.c.i
 
 CMakeFiles/bittorrent.dir/src/peer.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bittorrent.dir/src/peer.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrentProtocol/src/peer.c -o CMakeFiles/bittorrent.dir/src/peer.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrent-Protocol/src/peer.c -o CMakeFiles/bittorrent.dir/src/peer.c.s
 
 CMakeFiles/bittorrent.dir/src/torrent.c.o: CMakeFiles/bittorrent.dir/flags.make
-CMakeFiles/bittorrent.dir/src/torrent.c.o: /home/golden/Programming/BitTorrentProtocol/src/torrent.c
+CMakeFiles/bittorrent.dir/src/torrent.c.o: /home/golden/Programming/BitTorrent-Protocol/src/torrent.c
 CMakeFiles/bittorrent.dir/src/torrent.c.o: CMakeFiles/bittorrent.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/bittorrent.dir/src/torrent.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/torrent.c.o -MF CMakeFiles/bittorrent.dir/src/torrent.c.o.d -o CMakeFiles/bittorrent.dir/src/torrent.c.o -c /home/golden/Programming/BitTorrentProtocol/src/torrent.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/bittorrent.dir/src/torrent.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/torrent.c.o -MF CMakeFiles/bittorrent.dir/src/torrent.c.o.d -o CMakeFiles/bittorrent.dir/src/torrent.c.o -c /home/golden/Programming/BitTorrent-Protocol/src/torrent.c
 
 CMakeFiles/bittorrent.dir/src/torrent.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bittorrent.dir/src/torrent.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrentProtocol/src/torrent.c > CMakeFiles/bittorrent.dir/src/torrent.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrent-Protocol/src/torrent.c > CMakeFiles/bittorrent.dir/src/torrent.c.i
 
 CMakeFiles/bittorrent.dir/src/torrent.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bittorrent.dir/src/torrent.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrentProtocol/src/torrent.c -o CMakeFiles/bittorrent.dir/src/torrent.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrent-Protocol/src/torrent.c -o CMakeFiles/bittorrent.dir/src/torrent.c.s
 
 CMakeFiles/bittorrent.dir/src/utils.c.o: CMakeFiles/bittorrent.dir/flags.make
-CMakeFiles/bittorrent.dir/src/utils.c.o: /home/golden/Programming/BitTorrentProtocol/src/utils.c
+CMakeFiles/bittorrent.dir/src/utils.c.o: /home/golden/Programming/BitTorrent-Protocol/src/utils.c
 CMakeFiles/bittorrent.dir/src/utils.c.o: CMakeFiles/bittorrent.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/bittorrent.dir/src/utils.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/utils.c.o -MF CMakeFiles/bittorrent.dir/src/utils.c.o.d -o CMakeFiles/bittorrent.dir/src/utils.c.o -c /home/golden/Programming/BitTorrentProtocol/src/utils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/bittorrent.dir/src/utils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/utils.c.o -MF CMakeFiles/bittorrent.dir/src/utils.c.o.d -o CMakeFiles/bittorrent.dir/src/utils.c.o -c /home/golden/Programming/BitTorrent-Protocol/src/utils.c
 
 CMakeFiles/bittorrent.dir/src/utils.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bittorrent.dir/src/utils.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrentProtocol/src/utils.c > CMakeFiles/bittorrent.dir/src/utils.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrent-Protocol/src/utils.c > CMakeFiles/bittorrent.dir/src/utils.c.i
 
 CMakeFiles/bittorrent.dir/src/utils.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bittorrent.dir/src/utils.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrentProtocol/src/utils.c -o CMakeFiles/bittorrent.dir/src/utils.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrent-Protocol/src/utils.c -o CMakeFiles/bittorrent.dir/src/utils.c.s
 
 CMakeFiles/bittorrent.dir/src/bencode.c.o: CMakeFiles/bittorrent.dir/flags.make
-CMakeFiles/bittorrent.dir/src/bencode.c.o: /home/golden/Programming/BitTorrentProtocol/src/bencode.c
+CMakeFiles/bittorrent.dir/src/bencode.c.o: /home/golden/Programming/BitTorrent-Protocol/src/bencode.c
 CMakeFiles/bittorrent.dir/src/bencode.c.o: CMakeFiles/bittorrent.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/bittorrent.dir/src/bencode.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/bencode.c.o -MF CMakeFiles/bittorrent.dir/src/bencode.c.o.d -o CMakeFiles/bittorrent.dir/src/bencode.c.o -c /home/golden/Programming/BitTorrentProtocol/src/bencode.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/bittorrent.dir/src/bencode.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bittorrent.dir/src/bencode.c.o -MF CMakeFiles/bittorrent.dir/src/bencode.c.o.d -o CMakeFiles/bittorrent.dir/src/bencode.c.o -c /home/golden/Programming/BitTorrent-Protocol/src/bencode.c
 
 CMakeFiles/bittorrent.dir/src/bencode.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bittorrent.dir/src/bencode.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrentProtocol/src/bencode.c > CMakeFiles/bittorrent.dir/src/bencode.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/golden/Programming/BitTorrent-Protocol/src/bencode.c > CMakeFiles/bittorrent.dir/src/bencode.c.i
 
 CMakeFiles/bittorrent.dir/src/bencode.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bittorrent.dir/src/bencode.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrentProtocol/src/bencode.c -o CMakeFiles/bittorrent.dir/src/bencode.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/golden/Programming/BitTorrent-Protocol/src/bencode.c -o CMakeFiles/bittorrent.dir/src/bencode.c.s
 
 # Object files for target bittorrent
 bittorrent_OBJECTS = \
@@ -157,7 +157,7 @@ bittorrent: CMakeFiles/bittorrent.dir/src/utils.c.o
 bittorrent: CMakeFiles/bittorrent.dir/src/bencode.c.o
 bittorrent: CMakeFiles/bittorrent.dir/build.make
 bittorrent: CMakeFiles/bittorrent.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/golden/Programming/BitTorrentProtocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable bittorrent"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable bittorrent"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bittorrent.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -169,6 +169,6 @@ CMakeFiles/bittorrent.dir/clean:
 .PHONY : CMakeFiles/bittorrent.dir/clean
 
 CMakeFiles/bittorrent.dir/depend:
-	cd /home/golden/Programming/BitTorrentProtocol/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/golden/Programming/BitTorrentProtocol /home/golden/Programming/BitTorrentProtocol /home/golden/Programming/BitTorrentProtocol/build /home/golden/Programming/BitTorrentProtocol/build /home/golden/Programming/BitTorrentProtocol/build/CMakeFiles/bittorrent.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/golden/Programming/BitTorrent-Protocol/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/golden/Programming/BitTorrent-Protocol /home/golden/Programming/BitTorrent-Protocol /home/golden/Programming/BitTorrent-Protocol/build /home/golden/Programming/BitTorrent-Protocol/build /home/golden/Programming/BitTorrent-Protocol/build/CMakeFiles/bittorrent.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/bittorrent.dir/depend
 

@@ -46,8 +46,9 @@ BencodeList* create_bencode_list_entry(Bencode* value) {
     if (entry != NULL) {
         entry->value = value;
         entry->next = NULL;
+        return entry;
     }
-    return entry;
+    return NULL;
 }
 BencodeDict* create_bencode_dict_entry(const char* key, Bencode* value) {
     BencodeDict* entry = (BencodeDict*)malloc(sizeof(BencodeDict));
@@ -138,13 +139,19 @@ bool is_digit(char c) {
 }
 
 bool is_bencoded_integer(const char* str) {
-  int length = strlen(str);
+  char* end = strchr(str, 'e');
+  if (end == NULL) {
+    return false;
+  }
+  int len = end - str;
+
+  char* integer_str = malloc(len + 2);
 
   if(str[0] != 'i') {
     return false;
   }
 
-  if (str[length - 1] != 'e'){
+  if (str[len] != 'e'){
     return false;
   }
 
@@ -152,7 +159,7 @@ bool is_bencoded_integer(const char* str) {
     return false;
   }
 
-  for(int i = 2; i < length - 1; i++) {
+  for(int i = 2; i < len; i++) {
     if(!is_digit(str[i])){
       return false;
     }
@@ -177,7 +184,7 @@ bool is_bencoded_list(const char* str) {
 
 // Function to parse any Bencode type from the input data
 
-Bencode* parse_bencode(const char* data) {
+Bencode* parse_bencode(const char* data, const char** end) {
     if (data == NULL || *data == '\0') {
         // Invalid input data
         return NULL;
@@ -190,19 +197,23 @@ Bencode* parse_bencode(const char* data) {
     }
 
   if (is_digit(data[0])) {
-    return parse_bencode_string(data);
+    return parse_bencode_string(data, end);
   }
-  if (is_bencoded_integer(data)) {
-    return parse_bencode_integer(data);
+  else if (is_bencoded_integer(data)) {
+    return parse_bencode_integer(data, end);
   }
-  if (is_bencoded_list(data)) {
-    return parse_bencode_list(data);
+  else if (is_bencoded_list(data)) {
+    return parse_bencode_list(data, end);
+  }
+  else {
+    printf("UNSUPPORTED TYPE\n");
+    printf("%s\n", data);
   }
   return result;
 }
 
 
-Bencode* parse_bencode_integer(const char* bencoded_value) {
+Bencode* parse_bencode_integer(const char* bencoded_value, const char** endpos) {
     Bencode* result = (Bencode*)malloc(sizeof(Bencode));
     if (result == NULL) {
         // Memory allocation failure
@@ -218,14 +229,16 @@ Bencode* parse_bencode_integer(const char* bencoded_value) {
 
     strncpy(integer_str, start, len);
     integer_str[len] = '\0';    
-
     result->int_val = strtol(integer_str, &end, 10);
     result->type = BENCODE_INTEGER;
   
+    if (endpos != NULL) {
+        *endpos = start + len;
+    }
     return result;
 }
 
-Bencode* parse_bencode_string(const char* bencoded_value) {
+Bencode* parse_bencode_string(const char* bencoded_value, const char** end) {
     Bencode* result = (Bencode*)malloc(sizeof(Bencode));
     if (result == NULL) {
         // Handle memory allocation error
@@ -253,19 +266,21 @@ Bencode* parse_bencode_string(const char* bencoded_value) {
     }
     strncpy(result->str_val, decoded_str, length);
     result->str_val[length] = '\0';
-     
+    result->length = length;
     if (result->str_val == NULL) {
         // Handle memory allocation error
         free(result);
         return NULL;
     }
-    
+    if (end != NULL) {
+      *end = bencoded_value + result->length + 1;
+
+    }
     return result;
 }
 
 
-Bencode* parse_bencode_list(const char* data) {
-    return NULL;
+Bencode* parse_bencode_list(const char* data, const char** endpos) {
     // TODO: FIX
     if (data == NULL || *data != 'l') {
         // Invalid list format
@@ -274,6 +289,8 @@ Bencode* parse_bencode_list(const char* data) {
 
     // Move past 'l'
     data++;
+    
+    const char* end = data;
 
     Bencode* result = create_bencode_list();
     if (result == NULL) {
@@ -284,25 +301,25 @@ Bencode* parse_bencode_list(const char* data) {
     BencodeList* current = result->list_val;
 
     while (*data != 'e') {
-          printf("mamaia \n");
-        Bencode* element = parse_bencode(data);
+        Bencode* element = parse_bencode(data, &end);
         if (element == NULL) {
             // Parsing error, free allocated memory
             free_bencode(result);
             return NULL;
         }
-  
+        //printf("\n hmmm %lld   \n", element->int_val);
+
         // Add the element to the list
         add_to_bencode_list(&(result->list_val), element);
 
-        // Move to the next element in the list
-        current = result->list_val;
-        current = current->next;
+        data = end + 1;
     }
 
     // Move past 'e'
     data++;
-
+    if(endpos != NULL) {
+      *endpos = data;
+    }
     return result;
 }
 
@@ -310,6 +327,7 @@ Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** 
     return NULL;
     // TODO: FIX
 
+     // Mov // Mov
     if (data == NULL || *data != 'd') {
         // Invalid dictionary format
         return NULL;
@@ -329,7 +347,7 @@ Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** 
     while (*data != 'e') {
         // Parse the key
         char* key = NULL;
-        data = parse_bencode_string(data)->str_val;
+        data = parse_bencode_string(data, NULL)->str_val;
 
         if (key == NULL) {
             // Parsing error, free allocated memory
@@ -338,7 +356,7 @@ Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** 
         }
 
         // Parse the value
-        Bencode* value = parse_bencode(data);
+        Bencode* value = parse_bencode(data, NULL);
         if (value == NULL) {
             // Parsing error, free allocated memory
             free(key);

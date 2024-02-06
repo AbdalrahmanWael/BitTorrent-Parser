@@ -1,5 +1,5 @@
 CMakeFiles/bittorrent.dir/src/main.c.o: \
- /home/golden/Programming/BitTorrentProtocol/src/main.c \
+ /home/golden/Programming/BitTorrent-Protocol/src/main.c \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/features-time64.h /usr/include/bits/wordsize.h \
@@ -34,5 +34,5 @@ CMakeFiles/bittorrent.dir/src/main.c.o: \
  /usr/include/bits/stdlib-float.h /usr/include/string.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/golden/Programming/BitTorrentProtocol/src/../include/bencode.h \
+ /home/golden/Programming/BitTorrent-Protocol/src/../include/bencode.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdbool.h
