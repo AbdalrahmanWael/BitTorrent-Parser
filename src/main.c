@@ -20,42 +20,7 @@ int main(int argc, char *argv[]) {
         if (result != NULL) {
             // Print the parsed Bencode data
             printf("Parsed Bencode:\n");
-
-            if(result->type == BENCODE_STRING) {
-              printf("%s \n", result->str_val);
-            }
-            else if (result->type == BENCODE_INTEGER) {
-              printf("%lld   \n", result->int_val);
-            }
-            else if (result->type == BENCODE_LIST) {
-                BencodeList* last = (result->list_val);
-                printf("[ ");
-                while (last->next != NULL) {
-                  if(last->next->value->type == BENCODE_STRING) {
-                    printf("%s, ", last->value->str_val);
-                  }
-                  else if (last->next->value->type == BENCODE_INTEGER) {
-                    printf("%lld, ", last->value->int_val);
-                  }
-                  else {
-                    printf("Unsupported\n");
-                  }
-                  last = last->next;
-                }
-                if(last->value->type == BENCODE_STRING) {
-                  printf("%s ] \n", last->value->str_val);
-                }
-                else if (last->value->type == BENCODE_INTEGER) {
-                  printf("%lld ]\n", last->value->int_val);
-                }
-                else {
-                  printf("Unsupported\n");
-                }
-            }
-            else {
-              printf("Unsupported\n");
-            }
-
+            print_bencode(result);
             free_bencode(result);
         } else {
             printf("Error parsing Bencode data\n");

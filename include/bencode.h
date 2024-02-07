@@ -63,5 +63,9 @@ bool is_bencoded_list(const char* str);
 void free_bencode(Bencode* element);
 void free_bencode_dict(BencodeDict* dict);
 
+// Utility Functions
+
+void print_bencode(Bencode* element);
+
 #endif
 
