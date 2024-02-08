@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
         printf("Usage: %s decode <Bencode_string>\n", argv[0]);
         return 1;
     }
-
+    
     const char *command = argv[1];
     const char *bencodeData = argv[2];
 

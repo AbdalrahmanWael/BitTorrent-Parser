@@ -1,5 +1,6 @@
 // bencode.c
 #include "../include/bencode.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -168,6 +169,9 @@ bool is_bencoded_integer(const char* str) {
   return true;
 }
 
+
+// Temporarily Using to check if it's a dictionary
+
 bool is_bencoded_list(const char* str) {
 
   int length = strlen(str);
@@ -181,6 +185,89 @@ bool is_bencoded_list(const char* str) {
 
   return true;
 }
+
+// Temporarily Using to check if it's a dictionary
+bool is_bencoded_dict(const char* str) {
+  int length = strlen(str);
+
+  if(str[0] != 'd'){
+    return false;
+  }
+  if(str[length - 1] != 'e'){
+    return false;
+  }
+
+  return true;
+}
+
+bool iis_bencoded_dict(const char* str) {
+    // TODO: FIX
+    if (str == NULL || *str != 'd') {
+        // Invalid or empty input or not starting with 'd'
+        printf("Invalid or empty input or not starting with 'd'\n");
+        return false;
+    }
+
+    int length = strlen(str);
+    if (length < 2 || str[length - 1] != 'e') {
+        // Dictionary doesn't end with 'e'
+        printf("Dictionary doesn't end with 'e'\n");
+        return false;
+    }
+
+    // Iterate through the string to ensure correct format
+    const char* ptr = str + 1; // Skip the 'd' at the beginning
+    while (*ptr != 'e') {
+        // Each key must be a bencoded string
+        if (!is_digit(*ptr)) {
+            printf("Each key must be a bencoded string\n");
+            return false;
+        }
+
+        // Find the end of the key
+        const char* colon = strchr(ptr, ':');
+        if (colon == NULL) {
+            // Colon not found
+            printf("Colon not found\n");
+            return false;
+        }
+
+        // Extract the length of the key
+        int key_length = atoi(ptr);
+        if (key_length <= 0) {
+            // Invalid key length
+            printf("Invalid key length\n");
+            return false;
+        }
+
+        // Move the pointer to the beginning of the key
+        ptr = colon + 1;
+        //printf("\n Start of the key %s\n", ptr);
+        // Move the pointer to the end of the key
+        ptr += key_length ;
+        //printf("\nEnd of the key %s\n", ptr);
+
+        // Move the pointer to the value
+        // ptr++;
+
+        // Recursively check if the value is valid
+        if (!is_bencoded_dict(ptr) && !is_bencoded_list(ptr) && !is_bencoded_integer(ptr) && !is_digit(*ptr)) {
+            printf("Invalid value\n");
+            printf("\n THE VALUE: %s \n", ptr);
+            return false;
+        }
+
+        // Move the pointer to the next key or 'e' if it's the last element
+        while (*ptr != 'e' && !is_digit(*ptr)) {
+            ptr += key_length;
+        }
+    }
+
+    // If we reach here, the dictionary format is correct
+    printf("Dictionary format is correct\n");
+    return true;
+}
+
 
 // Function to parse any Bencode type from the input data
 
@@ -196,23 +283,27 @@ Bencode* parse_bencode(const char* data, const char** end) {
         return NULL;
     }
 
-  if (is_digit(data[0])) {
-    // printf("\nString Has BEEN HIT\n");
-    return parse_bencode_string(data, end);
-  }
-  else if (is_bencoded_integer(data)) {
-    // printf("\nINT HAS BEEN HIT \n");
-    return parse_bencode_integer(data, end);
-  }
-  else if (is_bencoded_list(data)) {
-    // printf("\nLIST HAS BEEN HIT \n");
-    return parse_bencode_list(data, end);
-  }
-  else {
-    printf("UNSUPPORTED TYPE\n");
-    printf("%s\n", data);
-  }
-  return result;
+    if (is_digit(data[0])) {
+      // printf("\nString Has BEEN HIT\n");
+      return parse_bencode_string(data, end);
+    }
+    else if (is_bencoded_integer(data)) {
+      // printf("\nINT HAS BEEN HIT \n");
+      return parse_bencode_integer(data, end);
+    }
+    else if (is_bencoded_list(data)) {
+      // printf("\nLIST HAS BEEN HIT \n");
+      return parse_bencode_list(data, end);
+    }
+    else if (is_bencoded_dict(data)){
+      return parse_bencode_dict(data, end);
+      printf("\nis dict\n");
+    }
+    else {
+      printf("UNSUPPORTED TYPE\n");
+      printf("%s\n", data);
+    }
+    return result;
 }
 
 
@@ -255,7 +346,7 @@ Bencode* parse_bencode_string(const char* bencoded_value, const char** end) {
       return NULL;
     }
     result->type = BENCODE_STRING;
-  
+    
     const char* start = colon_index + 1;
     char* decoded_str = (char*)malloc(length + 1);
     strncpy(decoded_str, start, length);
@@ -323,11 +414,8 @@ Bencode* parse_bencode_list(const char* data, const char** endpos) {
     return result;
 }
 
-Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** end) {
-    return NULL;
-    // TODO: FIX
-
-     // Mov // Mov
+Bencode* parse_bencode_dict(const char* data, const char** end) {
+   
     if (data == NULL || *data != 'd') {
         // Invalid dictionary format
         return NULL;
@@ -335,7 +423,7 @@ Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** 
 
     // Move past 'd'
     data++;
-
+    
     Bencode* result = create_bencode_dict();
     if (result == NULL) {
         // Memory allocation failure
@@ -345,18 +433,22 @@ Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** 
     BencodeDict* current = result->dict_val;
 
     while (*data != 'e') {
+        const char* element_end = NULL;
+        
         // Parse the key
         char* key = NULL;
-        data = parse_bencode_string(data, NULL)->str_val;
-
+        Bencode* element = parse_bencode_string(data, &element_end);
+        
+        data = element_end;
+        key = element->str_val;
         if (key == NULL) {
             // Parsing error, free allocated memory
             free_bencode(result);
             return NULL;
         }
-
+        
         // Parse the value
-        Bencode* value = parse_bencode(data, NULL);
+        Bencode* value = parse_bencode(data, &element_end);
         if (value == NULL) {
             // Parsing error, free allocated memory
             free(key);
@@ -366,12 +458,8 @@ Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** 
 
         // Add key-value pair to the dictionary
         add_to_bencode_dict(&(result->dict_val), key, value);
-
-        // Move to the next dictionary entry
-        current = result->dict_val;
-
-        // Move to the next element in the dictionary
-        current = current->next;
+        
+        data = element_end;  
     }
 
     // Move past 'e'

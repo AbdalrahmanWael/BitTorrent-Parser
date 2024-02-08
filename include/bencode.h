@@ -54,7 +54,7 @@ Bencode* parse_bencode(const char* data, const char** end);
 Bencode* parse_bencode_integer(const char* bencoded_value, const char** end);
 Bencode* parse_bencode_string(const char* bencoded_value, const char** end);
 Bencode* parse_bencode_list(const char* data, const char** endpos);
-Bencode* parse_bencode_dict(const char* data, BencodeDict** value, const char** end);
+Bencode* parse_bencode_dict(const char* data, const char** end);
 
 // Functions for determining Type of Bencoded value
 bool is_bencoded_list(const char* str);
