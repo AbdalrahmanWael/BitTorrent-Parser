@@ -50,14 +50,14 @@ void add_to_bencode_dict(BencodeDict** dict, const char* key, Bencode* value);
 Bencode* get_value_by_key(BencodeDict* dictionary, const char* key);
 
 // Functions for parsing Bencode from strings
-Bencode* parse_bencode(const char* data, const char** end);
+Bencode* parse_bencode(const char* data, const char** end, int length);
 Bencode* parse_bencode_integer(const char* bencoded_value, const char** end);
 Bencode* parse_bencode_string(const char* bencoded_value, const char** end);
-Bencode* parse_bencode_list(const char* data, const char** endpos);
-Bencode* parse_bencode_dict(const char* data, const char** end);
+Bencode* parse_bencode_list(const char* data, const char** endpos, int length);
+Bencode* parse_bencode_dict(const char* data, const char** end, int length);
 
 // Functions for determining Type of Bencoded value
-bool is_bencoded_list(const char* str);
+bool is_bencoded_list(const char* str, int length);
 
 // Memory management functions
 void free_bencode(Bencode* element);
@@ -66,6 +66,7 @@ void free_bencode_dict(BencodeDict* dict);
 // Utility Functions
 
 void print_bencode(Bencode* element);
+size_t get_list_length(BencodeList* list);
 
 #endif
 

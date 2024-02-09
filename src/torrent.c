@@ -19,7 +19,8 @@ static uint64_t get_integer_from_dict(BencodeDict* dict, const char* key) {
     }
     return 0;
 }
-// TODO: FIX BUGS
+
+
 TorrentMetadata* parse_torrent_file(const char* filename) {
     FILE* file = fopen(filename, "rb");
     if (file == NULL) {
@@ -39,18 +40,18 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
     }
 
     size_t bytes_read = fread(file_content, 1, file_size, file);
-    file_content[bytes_read] = '\0';
+    //file_content[bytes_read] = '\0';
     printf("\nNumber of bytes read %zu\n", bytes_read);
     fclose(file);
-    printf("\n\n\nFile Content\n %s \n\n\n", file_content);
+    
     const char* end_pos;
-    Bencode* parsed_data = parse_bencode(file_content, &end_pos);
+    Bencode* parsed_data = parse_bencode(file_content, &end_pos, bytes_read);
     if (parsed_data == NULL) {
         fprintf(stderr, "\nError: Failed to parse torrent file.\n");
         free(file_content);
         return NULL;
     }
-    printf("\nHMMM\n");
+    
     BencodeDict* info_dict = get_value_by_key(parsed_data->dict_val, "info")->dict_val;
     TorrentMetadata* metadata = (TorrentMetadata*)malloc(sizeof(TorrentMetadata));
     if (metadata == NULL) {
@@ -68,6 +69,34 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
     metadata->info.piece_length = get_integer_from_dict(info_dict, "piece length");
     metadata->info._private = get_integer_from_dict(info_dict, "private");
 
+    // Parse announce-list
+    Bencode* announce_list_entry = get_value_by_key(parsed_data->dict_val, "announce-list");
+    if (announce_list_entry != NULL && announce_list_entry->type == BENCODE_LIST) {
+        metadata->num_announce = announce_list_entry->length;
+        metadata->announce_list = (char***)malloc(metadata->num_announce * sizeof(char**));
+        if (metadata->announce_list != NULL) {
+            size_t i = 0;
+            BencodeList* current_tier = announce_list_entry->list_val;
+            while (current_tier != NULL) {
+                size_t tier_length = get_list_length(current_tier->value->list_val);
+                metadata->announce_list[i] = (char**)malloc((tier_length + 1) * sizeof(char*));
+                if (metadata->announce_list[i] != NULL) {
+                    size_t j = 0;
+                    BencodeList* current_url = current_tier->value->list_val;
+                    while (current_url != NULL) {
+                        metadata->announce_list[i][j] = strdup(current_url->value->str_val);
+                        current_url = current_url->next;
+                        j++;
+                    }
+                    metadata->announce_list[i][j] = NULL; // Null-terminate the list
+                }
+                current_tier = current_tier->next;
+                i++;
+            }
+        }
+    }
+
+    // Mode
     Bencode* name_entry = get_value_by_key(info_dict, "name");
     if (name_entry != NULL && name_entry->type == BENCODE_STRING) {
         metadata->mode = SINGLE_FILE_MODE;
@@ -78,11 +107,7 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
         metadata->multi_file.name = get_string_from_dict(info_dict, "name");
 
         BencodeList* files_list = get_value_by_key(info_dict, "files")->list_val;
-        int num_files = 0;
-        while (files_list != NULL) {
-            num_files++;
-            files_list = files_list->next;
-        }
+        size_t num_files = get_list_length(files_list);
         metadata->multi_file.num_files = num_files;
 
         metadata->multi_file.files = (TorrentFile*)malloc(num_files * sizeof(TorrentFile));
@@ -98,13 +123,14 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
             return NULL;
         }
 
-        files_list = get_value_by_key(info_dict, "files")->list_val;
-        for (int i = 0; i < num_files; i++) {
+        size_t file_index = 0;
+        while (files_list != NULL) {
             BencodeDict* file_dict = files_list->value->dict_val;
-            metadata->multi_file.files[i].length = get_integer_from_dict(file_dict, "length");
-            metadata->multi_file.files[i].md5sum = get_string_from_dict(file_dict, "md5sum");
-            metadata->multi_file.files[i].name = get_string_from_dict(file_dict, "name");
+            metadata->multi_file.files[file_index].length = get_integer_from_dict(file_dict, "length");
+            metadata->multi_file.files[file_index].md5sum = get_string_from_dict(file_dict, "md5sum");
+            metadata->multi_file.files[file_index].name = get_string_from_dict(file_dict, "name");
             files_list = files_list->next;
+            file_index++;
         }
     }
 
@@ -135,6 +161,7 @@ void free_torrent_metadata(TorrentMetadata* metadata) {
     }
 }
 
+
 void print_torrent_metadata(TorrentMetadata* metadata) {
     if (metadata == NULL) {
         printf("Torrent metadata is NULL.\n");
@@ -145,6 +172,18 @@ void print_torrent_metadata(TorrentMetadata* metadata) {
     printf("Creation Date: %llu\n", metadata->creation_date);
     printf("Comment: %s\n", metadata->comment);
     printf("Created By: %s\n", metadata->created_by);
+
+    // Printing announce-list
+    printf("Announce List:\n");
+    if (metadata->num_announce > 0) {
+        for (size_t i = 0; i < metadata->num_announce; i++) {
+            for (size_t j = 0; metadata->announce_list[i][j] != NULL; j++) {
+                printf("  %s\n", metadata->announce_list[i][j]);
+            }
+        }
+    } else {
+        printf("  (Empty)\n");
+    }
 
     printf("Info:\n");
     printf("  Piece Length: %llu\n", metadata->info.piece_length);
@@ -166,3 +205,4 @@ void print_torrent_metadata(TorrentMetadata* metadata) {
         }
     }
 }
+

@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         const char *bencodeData = argv[2];
 
         // Parse Bencode data
-        Bencode* result = parse_bencode(bencodeData, NULL);
+        Bencode* result = parse_bencode(bencodeData, NULL, 0);
 
         // Check if parsing was successful
         if (result != NULL) {
