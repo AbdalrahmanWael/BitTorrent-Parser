@@ -40,7 +40,7 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
     }
 
     size_t bytes_read = fread(file_content, 1, file_size, file);
-    //file_content[bytes_read] = '\0';
+    file_content[bytes_read] = '\0';
     printf("\nNumber of bytes read %zu\n", bytes_read);
     fclose(file);
     
@@ -51,6 +51,8 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
         free(file_content);
         return NULL;
     }
+    
+    //print_bencode(parsed_data);
     
     BencodeDict* info_dict = get_value_by_key(parsed_data->dict_val, "info")->dict_val;
     TorrentMetadata* metadata = (TorrentMetadata*)malloc(sizeof(TorrentMetadata));
@@ -98,15 +100,15 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
 
     // Mode
     Bencode* name_entry = get_value_by_key(info_dict, "name");
-    if (name_entry != NULL && name_entry->type == BENCODE_STRING) {
+    BencodeList* files_list = get_value_by_key(info_dict, "files")->list_val;
+    if (name_entry != NULL && name_entry->type == BENCODE_STRING && files_list == NULL) {
         metadata->mode = SINGLE_FILE_MODE;
         metadata->single_file.name = strdup(name_entry->str_val);
         metadata->single_file.length = get_integer_from_dict(info_dict, "length");
-    } else {
+    } else if (name_entry != NULL && name_entry->type == BENCODE_STRING && files_list){
         metadata->mode = MULTI_FILE_MODE;
-        metadata->multi_file.name = get_string_from_dict(info_dict, "name");
+        metadata->multi_file.name = strdup(name_entry->str_val);
 
-        BencodeList* files_list = get_value_by_key(info_dict, "files")->list_val;
         size_t num_files = get_list_length(files_list);
         metadata->multi_file.num_files = num_files;
 
@@ -128,12 +130,48 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
             BencodeDict* file_dict = files_list->value->dict_val;
             metadata->multi_file.files[file_index].length = get_integer_from_dict(file_dict, "length");
             metadata->multi_file.files[file_index].md5sum = get_string_from_dict(file_dict, "md5sum");
-            metadata->multi_file.files[file_index].name = get_string_from_dict(file_dict, "name");
+            metadata->multi_file.files[file_index].name = NULL; // Initialize name to NULL
+
+            // Parse the path list for the file
+            Bencode* path_entry = get_value_by_key(file_dict, "path");
+            if (path_entry != NULL && path_entry->type == BENCODE_LIST) {
+                size_t path_length = path_entry->length;
+                metadata->multi_file.files[file_index].name = (char*)malloc(MAX_PATH_LENGTH);
+                if (metadata->multi_file.files[file_index].name == NULL) {
+                    fprintf(stderr, "Error: Failed to allocate memory for file path.\n");
+                    // Free previously allocated memory
+                    for (size_t i = 0; i < file_index; i++) {
+                        free(metadata->multi_file.files[i].name);
+                    }
+                    free(metadata->multi_file.name);
+                    free(metadata->announce);
+                    free(metadata->comment);
+                    free(metadata->created_by);
+                    free(metadata->multi_file.files);
+                    free(metadata);
+                    free_bencode(parsed_data);
+                    free(file_content);
+                    return NULL;
+                }
+
+                // Concatenate path elements to form the complete file path
+                size_t path_index = 0;
+                BencodeList* path_list = path_entry->list_val;
+                while (path_list != NULL) {
+                    strncat(metadata->multi_file.files[file_index].name, path_list->value->str_val, MAX_PATH_LENGTH - 1);
+                    path_list = path_list->next;
+                    // Add directory separator if not the last element
+                    if (path_list != NULL) {
+                        strncat(metadata->multi_file.files[file_index].name, "/", MAX_PATH_LENGTH - 1);
+                    }
+                    path_index++;
+                }
+            }
+
             files_list = files_list->next;
             file_index++;
-        }
-    }
-
+        }    }
+    
     free_bencode(parsed_data);
     free(file_content);
 
@@ -162,6 +200,7 @@ void free_torrent_metadata(TorrentMetadata* metadata) {
 }
 
 
+
 void print_torrent_metadata(TorrentMetadata* metadata) {
     if (metadata == NULL) {
         printf("Torrent metadata is NULL.\n");
@@ -174,11 +213,12 @@ void print_torrent_metadata(TorrentMetadata* metadata) {
     printf("Created By: %s\n", metadata->created_by);
 
     // Printing announce-list
-    printf("Announce List:\n");
+    printf("Announce List:%d\n", metadata->num_announce);
     if (metadata->num_announce > 0) {
         for (size_t i = 0; i < metadata->num_announce; i++) {
+            printf("  Tier %zu:\n", i + 1);
             for (size_t j = 0; metadata->announce_list[i][j] != NULL; j++) {
-                printf("  %s\n", metadata->announce_list[i][j]);
+                printf("    %s\n", metadata->announce_list[i][j]);
             }
         }
     } else {

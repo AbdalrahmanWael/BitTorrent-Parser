@@ -38,7 +38,15 @@ typedef struct {
     
     // md5sum: (optional) a 32-character hexadecimal string corresponding to the MD5 sum of the file.
     // This is not used by BitTorrent at all, but it is included by some programs for greater compatibility.
-    char* md5sum;                   
+    char* md5sum;   
+    
+    // (in MULTI_FILE_MODE)
+    // a list containing one or more string elements that together represent the path and filename. 
+    // Each element in the list corresponds to either a directory name or (in the case of the final element)
+    // the filename. For example, a the file "dir1/dir2/file.ext" would consist of three string elements: 
+    // "dir1", "dir2", and "file.ext". This is encoded as a bencoded list of strings such as l4:dir14:dir28:file.exte
+    char* path;
+    char* filename;
 } TorrentFile;
 
 typedef struct {
@@ -99,3 +107,5 @@ void free_torrent_metadata(TorrentMetadata* metadata);
 void print_torrent_metadata(TorrentMetadata* metadata);
 
 #endif
+
+// @DOCUMENTATION SOURCE https://wiki.theory.org/BitTorrentSpecification

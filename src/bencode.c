@@ -29,6 +29,7 @@ Bencode* create_bencode_list(void) {
     if (new_element != NULL) {
         new_element->type = BENCODE_LIST;
         new_element->list_val = NULL;  // Initialize the list as empty
+        new_element->length = 0;    
     }
     return new_element;
 }
@@ -75,7 +76,7 @@ void add_to_bencode_list(BencodeList** list, Bencode* value) {
         while (last->next != NULL) {
             last = last->next;
         }
-
+        
         // Create a new entry
         BencodeList* new_entry = create_bencode_list_entry(value);
         if (new_entry != NULL) {
@@ -288,22 +289,22 @@ Bencode* parse_bencode(const char* data, const char** end, int length) {
         return NULL;
     }
     if (is_digit(data[0])) {
-      printf("\nString Has BEEN HIT\n");
+      // printf("\nString Has BEEN HIT\n");
       return parse_bencode_string(data, end);
     }
     else if (is_bencoded_integer(data)) {
-       printf("\nINT HAS BEEN HIT \n");
+      // printf("\nINT HAS BEEN HIT \n");
       return parse_bencode_integer(data, end);
     }
     else if (is_bencoded_list(data, length)) {
-      printf("\nLIST HAS BEEN HIT \n");
+      // printf("\nLIST HAS BEEN HIT \n");
       return parse_bencode_list(data, end, length);
-      printf("\nLIST HAS BEEN Closed \n");
+      //printf("\nLIST HAS BEEN Closed \n");
     }
     else if (is_bencoded_dict(data, length)){
-      printf("\nDict Has Been Hit\n");
+      // printf("\nDict Has Been Hit\n");
       return parse_bencode_dict(data, end, length);
-      printf("\nLIST HAS BEEN Closed \n");
+      
     }
     else {
       printf("UNSUPPORTED TYPE\n");
@@ -385,7 +386,7 @@ Bencode* parse_bencode_string(const char* bencoded_value, const char** end) {
     if (end != NULL) {
       *end = start + result->length;
     }
-    printf("string parsed: %s \n", result->str_val);
+    // printf("string parsed: %s \n", result->str_val);
     return result;
 }
 
@@ -419,7 +420,7 @@ Bencode* parse_bencode_list(const char* data, const char** endpos, int length) {
 
         // Add the element to the list
         add_to_bencode_list(&(result->list_val), element);
-
+        result->length++;
         data = element_end;
         length = length - (end - data);
     }
