@@ -153,6 +153,30 @@ src/bencode.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/bencode.c.s
 .PHONY : src/bencode.c.s
 
+src/config.o: src/config.c.o
+.PHONY : src/config.o
+
+# target to build an object file
+src/config.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/config.c.o
+.PHONY : src/config.c.o
+
+src/config.i: src/config.c.i
+.PHONY : src/config.i
+
+# target to preprocess a source file
+src/config.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/config.c.i
+.PHONY : src/config.c.i
+
+src/config.s: src/config.c.s
+.PHONY : src/config.s
+
+# target to generate assembly for a file
+src/config.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/config.c.s
+.PHONY : src/config.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -176,6 +200,30 @@ src/main.s: src/main.c.s
 src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/main.c.s
 .PHONY : src/main.c.s
+
+src/network.o: src/network.c.o
+.PHONY : src/network.o
+
+# target to build an object file
+src/network.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/network.c.o
+.PHONY : src/network.c.o
+
+src/network.i: src/network.c.i
+.PHONY : src/network.i
+
+# target to preprocess a source file
+src/network.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/network.c.i
+.PHONY : src/network.c.i
+
+src/network.s: src/network.c.s
+.PHONY : src/network.s
+
+# target to generate assembly for a file
+src/network.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/network.c.s
+.PHONY : src/network.c.s
 
 src/peer.o: src/peer.c.o
 .PHONY : src/peer.o
@@ -201,6 +249,30 @@ src/peer.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/peer.c.s
 .PHONY : src/peer.c.s
 
+src/piece.o: src/piece.c.o
+.PHONY : src/piece.o
+
+# target to build an object file
+src/piece.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/piece.c.o
+.PHONY : src/piece.c.o
+
+src/piece.i: src/piece.c.i
+.PHONY : src/piece.i
+
+# target to preprocess a source file
+src/piece.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/piece.c.i
+.PHONY : src/piece.c.i
+
+src/piece.s: src/piece.c.s
+.PHONY : src/piece.s
+
+# target to generate assembly for a file
+src/piece.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/piece.c.s
+.PHONY : src/piece.c.s
+
 src/torrent.o: src/torrent.c.o
 .PHONY : src/torrent.o
 
@@ -224,6 +296,30 @@ src/torrent.s: src/torrent.c.s
 src/torrent.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/torrent.c.s
 .PHONY : src/torrent.c.s
+
+src/tracker.o: src/tracker.c.o
+.PHONY : src/tracker.o
+
+# target to build an object file
+src/tracker.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/tracker.c.o
+.PHONY : src/tracker.c.o
+
+src/tracker.i: src/tracker.c.i
+.PHONY : src/tracker.i
+
+# target to preprocess a source file
+src/tracker.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/tracker.c.i
+.PHONY : src/tracker.c.i
+
+src/tracker.s: src/tracker.c.s
+.PHONY : src/tracker.s
+
+# target to generate assembly for a file
+src/tracker.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bittorrent.dir/build.make CMakeFiles/bittorrent.dir/src/tracker.c.s
+.PHONY : src/tracker.c.s
 
 src/utils.o: src/utils.c.o
 .PHONY : src/utils.o
@@ -261,15 +357,27 @@ help:
 	@echo "... src/bencode.o"
 	@echo "... src/bencode.i"
 	@echo "... src/bencode.s"
+	@echo "... src/config.o"
+	@echo "... src/config.i"
+	@echo "... src/config.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/network.o"
+	@echo "... src/network.i"
+	@echo "... src/network.s"
 	@echo "... src/peer.o"
 	@echo "... src/peer.i"
 	@echo "... src/peer.s"
+	@echo "... src/piece.o"
+	@echo "... src/piece.i"
+	@echo "... src/piece.s"
 	@echo "... src/torrent.o"
 	@echo "... src/torrent.i"
 	@echo "... src/torrent.s"
+	@echo "... src/tracker.o"
+	@echo "... src/tracker.i"
+	@echo "... src/tracker.s"
 	@echo "... src/utils.o"
 	@echo "... src/utils.i"
 	@echo "... src/utils.s"
