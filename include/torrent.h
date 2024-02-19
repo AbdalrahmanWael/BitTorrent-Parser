@@ -1,6 +1,7 @@
 #ifndef TORRENT_H
 #define TORRENT_H
 
+#include "bencode.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <time.h>
@@ -99,12 +100,14 @@ typedef struct {
       // Info in Multiple File Mode
       MultiFileInfo multi_file;
     };                   
-   
+  Bencode* full_bencode;
+  char* info_bencode_value;
 } TorrentMetadata;
 
 TorrentMetadata* parse_torrent_file(const char* filename);
 void free_torrent_metadata(TorrentMetadata* metadata);
 void print_torrent_metadata(TorrentMetadata* metadata);
+char* calculate_hash(char* info_bencode);
 
 #endif
 

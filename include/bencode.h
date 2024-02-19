@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+
 typedef enum {
     BENCODE_INTEGER,
     BENCODE_STRING,
@@ -32,7 +34,9 @@ typedef struct BencodeList {
 typedef struct BencodeDict {
     char* key;
     Bencode* value;
+    char* bencoded_value;
     struct BencodeDict* next;
+
 } BencodeDict;
 
 // Functions for creating Bencode elements
@@ -48,6 +52,8 @@ void add_to_bencode_dict(BencodeDict** dict, const char* key, Bencode* value);
 
 // Function for retrieving elements from dictionaries
 Bencode* get_value_by_key(BencodeDict* dictionary, const char* key);
+uint64_t get_integer_from_dict(BencodeDict* dict, const char* key);
+char* get_string_from_dict(BencodeDict* dict, const char* key);
 
 // Functions for parsing Bencode from strings
 Bencode* parse_bencode(const char* data, const char** end, int length);

@@ -3,23 +3,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <openssl/sha.h> 
 
-static char* get_string_from_dict(BencodeDict* dict, const char* key) {
-    Bencode* value = get_value_by_key(dict, key);
-    if (value != NULL && value->type == BENCODE_STRING) {
-        return strdup(value->str_val);
+
+char* calculate_hash(char* info_bencode) {
+    
+    if (info_bencode == NULL) {
+        fprintf(stderr, "Error: Failed to convert info structure to Bencode.\n");
+        return NULL;
     }
-    return NULL;
-}
 
-static uint64_t get_integer_from_dict(BencodeDict* dict, const char* key) {
-    Bencode* value = get_value_by_key(dict, key);
-    if (value != NULL && value->type == BENCODE_INTEGER) {
-        return (uint64_t)value->int_val;
+    // Compute the SHA-1 hash of the Bencoded info structure
+    unsigned char digest[SHA_DIGEST_LENGTH];
+    SHA1((unsigned char*)info_bencode, strlen(info_bencode), digest);
+
+    // Convert the binary hash to hexadecimal string
+    char* info_hash = (char*)malloc((SHA_DIGEST_LENGTH * 2 + 1) * sizeof(char));
+    if (info_hash == NULL) {
+        fprintf(stderr, "Error: Failed to allocate memory for info hash.\n");
+        free(info_bencode);
+        return NULL;
     }
-    return 0;
-}
+    for (int i = 0; i < SHA_DIGEST_LENGTH; i++) {
+        sprintf(&info_hash[i * 2], "%02x", digest[i]);
+    }
+    info_hash[SHA_DIGEST_LENGTH * 2] = '\0';
 
+    
+    return info_hash;
+}
 
 TorrentMetadata* parse_torrent_file(const char* filename) {
     FILE* file = fopen(filename, "rb");
@@ -62,6 +74,11 @@ TorrentMetadata* parse_torrent_file(const char* filename) {
         free(file_content);
         return NULL;
     }
+
+    metadata->full_bencode = parsed_data;
+    metadata->info_bencode_value = info_dict->bencoded_value;
+    // printf("\ninfo_bencode %s\n", metadata->info_bencode_value);
+    // printf("\nhashed Info Bencode: %s\n", calculate_info_hash(metadata->info_bencode_value));  
 
     metadata->announce = get_string_from_dict(parsed_data->dict_val, "announce");
     metadata->creation_date = get_integer_from_dict(parsed_data->dict_val, "creation date");

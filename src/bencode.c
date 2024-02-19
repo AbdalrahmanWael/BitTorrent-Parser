@@ -1,7 +1,9 @@
 // bencode.c
 #include "../include/bencode.h"
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <string.h>
 
 // Functions for creating Bencode elements
@@ -132,6 +134,22 @@ Bencode* get_value_by_key(BencodeDict* dictionary, const char* key) {
 
     // Key not found
     return NULL;
+}
+
+char* get_string_from_dict(BencodeDict* dict, const char* key) {
+    Bencode* value = get_value_by_key(dict, key);
+    if (value != NULL && value->type == BENCODE_STRING) {
+        return strdup(value->str_val);
+    }
+    return NULL;
+}
+
+uint64_t get_integer_from_dict(BencodeDict* dict, const char* key) {
+    Bencode* value = get_value_by_key(dict, key);
+    if (value != NULL && value->type == BENCODE_INTEGER) {
+        return (uint64_t)value->int_val;
+    }
+    return 0;
 }
 
 // Functions for determining Type of Bencoded value
@@ -288,6 +306,7 @@ Bencode* parse_bencode(const char* data, const char** end, int length) {
         // Memory allocation failure
         return NULL;
     }
+
     if (is_digit(data[0])) {
       // printf("\nString Has BEEN HIT\n");
       return parse_bencode_string(data, end);
@@ -439,6 +458,8 @@ Bencode* parse_bencode_dict(const char* data, const char** end, int length) {
         // Invalid dictionary format
         return NULL;
     }
+    
+    char* mdata = strdup(data);
 
     // Move past 'd'
     data++;
@@ -486,6 +507,7 @@ Bencode* parse_bencode_dict(const char* data, const char** end, int length) {
     // Move past 'e'
     data++;
 
+    result->dict_val->bencoded_value = mdata;
 
     // Set the end pointer if provided
     if (end != NULL) {
