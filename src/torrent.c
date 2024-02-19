@@ -6,7 +6,7 @@
 #include <openssl/sha.h> 
 
 
-char* calculate_info_hash(char* info_bencode) {
+char* calculate_hash(char* info_bencode) {
     
     if (info_bencode == NULL) {
         fprintf(stderr, "Error: Failed to convert info structure to Bencode.\n");

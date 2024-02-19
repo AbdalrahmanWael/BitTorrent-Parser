@@ -15,6 +15,17 @@ int main(int argc, char *argv[]) {
 
     const char *command = argv[1];
 
+    if (strcmp(command, "infohash") == 0) {
+        if (argc != 3) {
+            printf("Usage: %s infohash <string>\n", argv[0]);
+            return 1;
+        }
+
+        const char* result = calculate_hash(argv[2]);
+        printf("INFO HASH: %s\n", result);
+        return 0;
+    }
+
     if (strcmp(command, "server") == 0) {
         if (argc != 3) {
             printf("Usage: %s server <port>\n", argv[0]);

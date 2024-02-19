@@ -107,7 +107,7 @@ typedef struct {
 TorrentMetadata* parse_torrent_file(const char* filename);
 void free_torrent_metadata(TorrentMetadata* metadata);
 void print_torrent_metadata(TorrentMetadata* metadata);
-char* calculate_info_hash(char* info_bencode);
+char* calculate_hash(char* info_bencode);
 
 #endif
 
